@@ -1,0 +1,62 @@
+---
+title: "punto2-tp05.03-reglasAsociacion"
+author: "juan-natello"
+date: "22/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(arules)
+
+data("Groceries")
+reglas <- apriori(Groceries, parameter = list(support=0.01, confidence=0.01, target = "rules"))
+print(reglas)
+inspect(reglas)
+```
+
+
+
+```{r}
+
+
+transactions = read.transactions("~/UNLu/BasedeDatosMasivas/Trabajos Practicos/Tp05.03ReglasDeAsociacion-R/code/punto-2/bank-full.csv")
+
+# rules = apriori(transactions, parameter=list(target="rules", confidence=0.01, support=0.2))
+
+itemsets <- apriori(transactions, parameter = list(support=0.01, confidence=0.01, target="frequent itemsets"))
+inspect(itemsets)
+
+```
+
+
+```{r}
+
+data <- {}
+transactions <- as(as.data.frame(apply(data, 2, as.factor)), "transactions")
+rules = apriori(transactions, parameter=list(target="rules", confidence=0.25, support=0.2))
+
+```
+
+
+```{r}
+
+str(Groceries)
+
+```
+
+
+
+```{r}
+inspect(Groceries)
+```
+
+
+
+```{r}
+reglas <- apriori(Groceries, parameter = list(support=0.2, confidence=0.2, target = "rules"))
+
+inspect(reglas)
+
+inspect(sort(reglas, by="lift", decreasing = TRUE))
+
+```
