@@ -1,0 +1,61 @@
+```{r}
+
+bank_portugal = "~/UNLu/BasedeDatosMasivas/Trabajos Practicos/Tp05.03ReglasDeAsociacion-R/code/punto-3/bank-full.csv"
+
+bnk_port = read.csv(bank_portugal, sep = ";", header = TRUE)
+
+# Exploramos y discretizamos (a ojo)
+bnk_port.age = discretize(bnk_port$age, method = "fixed", breaks = c(-Inf, 35, 48, 60, Inf), labels = c("joven", "adulto", "mediana_edad", "tercera_edad"))
+
+bnk_port.balance = discretize(bnk_port$balance, method = "fixed", breaks = c(-Inf, 0, 500, 20000, 50000, Inf), labels = c("muy malo", "sin perdida", "poca ganancia", "hubo ganancia","mucha ganancia"))
+
+bnk_port.duration = discretize(bnk_port$duration, method = "fixed", breaks = c(-Inf, 500, 1000, 2000, Inf), labels = c("poco tiempo", "tiempo moderado", "bastante tiempo", "tiempo excedido"))
+
+bnk_port.campaign = discretize(bnk_port$campaign, method = "fixed", breaks = c(-Inf, 10, 20, Inf), labels = c("pocas veces", "bastantes veces", "demasiadas veces"))
+
+bnk_port.pdays = discretize(bnk_port$pdays, method = "fixed", breaks = c(-Inf, 0, 200, 500, Inf), labels = c("no aplica", "poco tiempo", "mucho tiempo", "demasiadas tiempo"))
+
+bnk_port.previous = discretize(bnk_port$previous, method = "fixed", breaks = c(-Inf, 0, 9, 39, 79, Inf), labels = c("ninguna vez", "casi nada", "algunas veces", "muchas veces", "demasiadas veces"))
+
+
+bnk_port.day = discretize(bnk_port$day, method = "fixed", breaks = c(-Inf, 10, 20, Inf), labels = c("principio de mes", "mitad de mes", "fin de mes"))
+
+
+bnk_port_discretizado = data.frame(as.factor(bnk_port.age), 
+                               as.factor(bnk_port$job), 
+                               as.factor(bnk_port$marital), 
+                               as.factor(bnk_port$education), 
+                               as.factor(bnk_port$default), 
+                               as.factor(bnk_port.balance), 
+                               as.factor(bnk_port$housing), 
+                               as.factor(bnk_port$loan), 
+                               as.factor(bnk_port$contact), 
+                               as.factor(bnk_port.day),
+                               as.factor(bnk_port$month),
+                               as.factor(bnk_port.duration), 
+                               as.factor(bnk_port.campaign), 
+                               as.factor(bnk_port.pdays),
+                               as.factor(bnk_port.previous),
+                               as.factor(bnk_port$poutcome),
+                               as.factor(bnk_port$y)
+                               )
+names(bnk_port_discretizado) = c("bnk_port.age", 
+                             "bnk_port.job", 
+                             "bnk_port.marital", 
+                             "bnk_port.education", 
+                             "bnk_port.default", 
+                             "bnk_port.balance", 
+                             "bnk_port.housing", 
+                             "bnk_port.loan", 
+                             "bnk_port.contact", 
+                             "bnk_port.day", 
+                             "bnk_port.month", 
+                             "bnk_port.duration", 
+                             "bnk_port.campaign", 
+                             "bnk_port.pdays", 
+                             "bnk_port.previous", 
+                             "bnk_port.poutcome", 
+                             "bnk_port.y" 
+                             )
+View(bnk_port_discretizado)
+```

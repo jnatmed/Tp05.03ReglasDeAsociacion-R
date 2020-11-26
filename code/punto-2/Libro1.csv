@@ -1,0 +1,5 @@
+lhs;;rhs;support;confidence;lift;count
+{whole milk, yogurt};=>;{curd};0.01006609;0.179673321;3.372303653;99
+{citrus fruit, other vegetables};=>;{root vegetables};0.010371124;0.35915493;3.295045459;102
+{other vegetables,yogurt};=>;{whipped/sour cream};0.010167768;0.234192037;3.26706197;100
+{tropical fruit, other vegetables};=>;{root vegetables};0.012302999;0.342776204;3.144779819;121

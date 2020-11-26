@@ -9,54 +9,63 @@ output: html_document
 library(arules)
 
 data("Groceries")
+```
+
+```{r setup, include=FALSE}
 reglas <- apriori(Groceries, parameter = list(support=0.01, confidence=0.01, target = "rules"))
-print(reglas)
-inspect(reglas)
+# print(reglas)
+# inspect(reglas)
+
+reglas <- sort(reglas, by="lift", decreasing=TRUE)
+inspect(head(reglas, n = 4, by = "lift"))
 ```
 
 
 
 ```{r}
 
+rules = apriori(Groceries, parameter = list(support = 0.09, confidence = 0.1))
+rules <- sort(rules, by="support", decreasing=TRUE)
+summary(rules)
+inspect(rules)
+# path_file = "code/punto-2/resultado.inspect.csv"
+# write.csv(x = resultado.inspect, file = path_file , row.names = FALSE) 
 
-transactions = read.transactions("~/UNLu/BasedeDatosMasivas/Trabajos Practicos/Tp05.03ReglasDeAsociacion-R/code/punto-2/bank-full.csv")
-
-# rules = apriori(transactions, parameter=list(target="rules", confidence=0.01, support=0.2))
-
-itemsets <- apriori(transactions, parameter = list(support=0.01, confidence=0.01, target="frequent itemsets"))
-inspect(itemsets)
 
 ```
 
 
 ```{r}
 
-data <- {}
-transactions <- as(as.data.frame(apply(data, 2, as.factor)), "transactions")
-rules = apriori(transactions, parameter=list(target="rules", confidence=0.25, support=0.2))
-
+reglas_water <- apriori(Groceries, parameter = list(support=0.01, confidence=0.01, target = "rules"), appearance = list(rhs="bottled water"))
+inspect(reglas_water)
+inspect(sort(reglas_water,by="lift",decreasing=TRUE))
 ```
 
 
 ```{r}
 
-str(Groceries)
+reglas_beer <- apriori(Groceries, parameter = list(support=0.01, confidence=0.01, target = "rules"), appearance = list(rhs="bottled beer"))
+inspect(reglas_beer)
+inspect(sort(reglas_beer,by="lift",decreasing=TRUE))
 
 ```
 
 
 
 ```{r}
-inspect(Groceries)
+library(RColorBrewer)
+# itemFrequencyPlot(Groceries, topN = 20,  
+#                           col = brewer.pal(8, 'Pastel2'), 
+#                           main = 'Relative Item Frequency Plot', 
+#                           type = "relative", 
+#                           ylab = "Item Frequency (Relative)")```
+
+itemFrequencyPlot(Groceries,
+                topN = 10, 
+                col = brewer.pal(8, 'Pastel2'),
+                support = 0.01, 
+                cex.names=0.8, 
+                main="MinSup=0.01")
 ```
 
-
-
-```{r}
-reglas <- apriori(Groceries, parameter = list(support=0.2, confidence=0.2, target = "rules"))
-
-inspect(reglas)
-
-inspect(sort(reglas, by="lift", decreasing = TRUE))
-
-```
